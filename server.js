@@ -1,6 +1,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
+var socket = require("socket.io");
 
 var app = express();
 var port = 9000;
@@ -63,7 +64,7 @@ var server = app.listen(port, function() {
 var io = socket(server);
 
 io.on('connection', function (socket) {
-    console.log("Connected to Socket.io", socket.id)
+    console.log("Connected to Socket ", socket.id)
 
     // gets the URL input and hears on function call Video
     socket.on('Video', function(data){
