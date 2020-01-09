@@ -57,3 +57,16 @@ var server = app.listen(port, function() {
     // Some output for the interested reader...
     console.log("Listening on " + port);
 })
+
+
+// Creates our Socket
+var io = socket(server);
+
+io.on('connection', function (socket) {
+    console.log("Connected to Socket.io", socket.id)
+
+    // gets the URL input and hears on function call Video
+    socket.on('Video', function(data){
+        io.emit('Video', data);
+    })
+})
