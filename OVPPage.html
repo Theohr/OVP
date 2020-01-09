@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        
+        <!-- Some CSS for the HTML Client -->
+        <style>
+            body {
+                background-size: 500px;
+            }
+            #OVP {
+                width: 1300px;
+	            height: 900px;
+                position: absolute;
+	            top:0;
+	            bottom: 0;
+	            left: 0;
+	            right: 0;
+	            margin: auto;
+                background: rgb(146, 135, 187,0.8);
+                transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
+                transform: scale(1);
+            }
+            #Url {
+                text-align:center;
+                position: absolute;
+                width: 350px;
+	            height: 45px;
+                top:0;
+	            bottom: 750px;
+	            left: -450px;
+	            right: 0;
+	            margin: auto;
+            }
+            #Url input{
+                width: 150%;
+                height: 50%;
+                font-size: 15px;
+                padding-top:20px;
+                border: none;
+                border-bottom: 3px solid red;
+                outline: none;
+                text-align:center;
+                color:white;
+                background:transparent;
+            }
+            #Url label{
+                position:absolute;
+                bottom:0px;
+                left:0px;
+                width:10%;
+                height:100%;
+                font-size:19px;
+                pointer-events:none;
+            }
+            #Url_Span{
+                position:absolute;
+                bottom:0px;
+                left:3px;
+                transition: all 0.3s ease;
+            }
+            #Exit {
+                position: absolute;
+                width: 350px;
+	            height: 50px;
+                top:670px;
+	            bottom: 0;
+	            left: 0px;
+	            right: 0;
+	            margin: auto;
+                color: rgba(255,255,255,0.8);
+                background: #FF3366;
+                font-size: 1.5rem;
+                border-radius: 3rem;
+                cursor: pointer;
+                overflow: hidden;
+                transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+            }
+            #Play {
+                position: absolute;
+                width: 250px;
+	            height: 40px;
+                top:0px;
+	            bottom: 0px;
+	            left: 550px;
+	            right: 0;
+	            margin: auto;
+                color: rgba(255,255,255,0.8);
+                background: #FF3366;
+                font-size: 20px;
+                border-radius: 3rem;
+                cursor: pointer;
+                overflow: hidden;
+                transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+            }
+            #Url input:focus + #Url_Label #Url_Span,
+            #Url input:valid + #Url_Label #Url_Span{
+                transform: translateY(-120%);
+                color: white;
+            }
+            #OVP_Q {
+                top:50px;
+	            bottom: 0px;
+	            left: 0px;
+	            right: 0;
+            }
+            #VideoPlayer{
+                top:150px;
+	            bottom: 0px;
+	            left: 100px;
+	            right: 0;
+                position:absolute;
+            }
+            #QueuedVideos {
+                top:150px;
+	            bottom: 0px;
+	            left: 800px;
+	            right: 0;
+                position:absolute;
+            }
+        </style>
+    
+        <script>
+            
+            $(window).on("load", function() {
+
+            });
+        
+        </script>
+    </head>
+    <!-- HTML -->
+    <body>
+
+        <div id="OVP">
+            <form id="Url" method="post" action="/OVPlayer"> 
+                <input type="text" id="Url_Input" name= "Url_Input"/>
+                <label for="Url" id="Url_Label">
+                    <span id="Url_Span">URL</span>
+                </label>
+                <button type="submit" id="Play">Play Video</button>
+            </form>
+            <div id="OVP_Q">
+                <div id="VideoPlayer">
+                    <!-- video display here -->
+                </div>
+            </div>
+            <div id="ExitPlayer">
+                <button type="button" id="Exit">Exit OVP</button>
+            </div>
+        </div>
+
+    </body>
+
+</html>
