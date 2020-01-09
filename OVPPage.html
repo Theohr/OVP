@@ -129,7 +129,36 @@
             $(window).on("load", function() {
 
             });
-        
+            
+            
+            // on click function for button Play
+            $(document).on("click", "#Play", function(e){
+
+                // gets the value of url input, and transforms it into an embed video 
+                var x = document.getElementById('Url_Input').value;
+                var transform = x.split("?v=")[1];
+                var embedlink = "https://www.youtube.com/embed/" + transform;
+
+                // emits the url into the socket on function Video and sends it to the server
+                socket.emit('Video', {
+                    embedlink: embedlink
+                });
+
+                // if the input is empty then display a message
+                if (x == "") {
+                    alert("Please enter a valid Youtube Video Url you want to queue");
+                    return false;
+                }
+                else {
+                    alert("Hope you enjoy your video!");
+                }
+            });
+
+            // exits the OVP
+            $(document).on("click", "#Exit", function(e) {
+                window.location.replace('/');
+                alert('See you soon :)'); 
+            });
         </script>
     </head>
     <!-- HTML -->
