@@ -130,7 +130,9 @@
 
             });
             
-            
+            // connects our socket
+            var socket = io.connect();
+
             // on click function for button Play
             $(document).on("click", "#Play", function(e){
 
@@ -152,6 +154,13 @@
                 else {
                     alert("Hope you enjoy your video!");
                 }
+            });
+
+            // gets the socket from the server and dispolays on all the clients the video inserted
+                socket.on('Video', function(data){
+                document.getElementById('VideoPlayer').innerHTML='<iframe id="movie" src="'+data.embedlink+'" height="550px" width="1100px"></iframe>';
+                var player =document.getElementById('movie');
+                player.play();
             });
 
             // exits the OVP
