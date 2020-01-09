@@ -103,7 +103,27 @@
         </style>
     
         <script>
+            $(window).on("load", function() {
+                
+            });
 
+            // function that applies by clicking the Join Button 
+            $(document).on("click", "#Join", function(e) {
+                
+                // gets the input of the user
+                var x = document.getElementById('Username').value;
+
+                // if empty then error pops up
+                if (x == "") {
+                    alert("Please enter your Username to join the OVP");
+                    return false;
+                }
+                else {
+                    // else joins the OVP
+                   window.location.replace('/OVPPage');
+                   alert("Welcome to the OVP "+x+"!");
+                }
+            });
         </script>
 
     </head>
