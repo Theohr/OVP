@@ -16,6 +16,23 @@ app.get('/', function (req,res) {
     res.sendFile('HomePage.html', { root: __dirname } )
 })
 
+//This div is the list of the Online Users currently in the Player but unfortunately 
+//due to minor errors it doesnt render properly althought it still gets the users from the database
+app.get('/Users', function(req,res){
+    var displayUsers = [];
+
+    mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db){
+        var cursor = db.collection('Users').find();
+
+        cursor.forEach(function(doc, err){
+            displayUsers.push(doc);
+        }, function(){
+            db.close();
+            res.send({Array: displayUsers})
+        })
+    })
+})
+
 // Post function that is used to send the input username of the user into the table Users in Mongo
 app.post('/OVP', function(req,res){
     var usr = {
@@ -28,7 +45,7 @@ app.post('/OVP', function(req,res){
             console.log('User Inserted');
             db.close();
             // then goes to the OVPPage.html 
-            res.sendFile('OVPPage.html', { root: __dirname } )
+            res.sendFile('OVPPage.html', { root: __dirname })
         })
     })
 })
