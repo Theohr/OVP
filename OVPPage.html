@@ -6,7 +6,9 @@
         <link rel="stylesheet" href="https://unpkg.com/mocha/mocha.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
-        <script src="./node_modules/chai/chai.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
         
         <!-- Some CSS for the HTML Client -->
         <style>
@@ -19,8 +21,31 @@
                 position: absolute;
 	            top:0;
 	            bottom: 0;
-	            left: 0;
+                /* set left to 500 if chat active */
+	            left: 0px; 
 	            right: 0;
+	            margin: auto;
+                background: rgb(146, 135, 187,0.8);
+                transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
+                transform: scale(1);
+            }
+            h2 {
+                text-align:center;
+                color:black;
+                font-size: x-large;
+            }
+            #table {
+                color:white;
+                font-size: medium;
+            }
+            #users {
+                width: 450px;
+	            height: 700px;
+                position: absolute;
+	            top:0;
+	            bottom: 0;
+	            left: 0px;
+	            right: 1300px;
 	            margin: auto;
                 background: rgb(146, 135, 187,0.8);
                 transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
@@ -98,6 +123,25 @@
                 overflow: hidden;
                 transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
             }
+
+            #Show {
+                position: absolute;
+                width: 250px;
+	            height: 40px;
+                top:0px;
+	            bottom: 0px;
+	            left: 0px;
+	            right: 0;
+	            margin: auto;
+                color: rgba(255,255,255,0.8);
+                background: #FF3366;
+                font-size: 20px;
+                border-radius: 3rem;
+                cursor: pointer;
+                overflow: hidden;
+                transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
+            }
+
             #Url input:focus + #Url_Label #Url_Span,
             #Url input:valid + #Url_Label #Url_Span{
                 transform: translateY(-120%);
@@ -133,6 +177,15 @@
             
             // connects our socket
             var socket = io.connect();
+
+            var app = angular.module('myApp', []);
+                app.controller('myCtrl', function($scope, $http) {
+                    $scope.Array = []
+                    $http.get("/Users").then(function(response) {
+                    $scope.Array = response.data;
+                    console.log(response);
+                    });
+            });
 
             // on click function for button Play
             $(document).on("click", "#Play", function(e){
@@ -192,6 +245,16 @@
             </div>
         </div>
 
+        <!-- This div is the list of the Online Users currently in the Player but unfortunately 
+            due to minor errors it doesnt render properly althought it still gets the users from the database -->
+        <!-- <div id="users" ng-app="myApp" ng-controller="myCtrl">
+            <h2>Users Online</h2>
+            <table id="table">
+                <tr ng-repeat="x in Array">
+                  <td>{{ x }}</td>
+                </tr>
+            </table>
+        </div> -->
     </body>
 
 </html>
